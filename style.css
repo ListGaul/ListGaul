@@ -1,0 +1,122 @@
+body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.badge-main {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.badge-main h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.search-container {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-container input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    font-size: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 4px;
+    max-width: 600px;
+}
+
+.search-badge {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -40px; /* To overlap the right side of the input field */
+}
+
+.search-badge img {
+    width: 20px;
+    height: 20px;
+}
+
+.badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 20px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    max-width: 1000px; /* Max width to ensure badges stay centered in wider screens */
+}
+
+.badge {
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+    text-align: center;
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: #333;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    margin: 20px auto;
+    max-width: 80%;
+}
+
+.kembali-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.kembali-badge {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.badge-count {
+    text-align: center;
+    margin: 20px;
+    font-size: 1em;
+}
+
+@media (max-width: 600px) {
+    .search-container input[type="text"] {
+        width: 90%;
+    }
+    .search-container .search-badge {
+        margin-left: -30px;
+    }
+    .badge-container {
+        padding: 0 10px;
+    }
+}
