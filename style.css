@@ -49,7 +49,7 @@ body {
     margin-left: -40px; /* To overlap the right side of the input field */
 }
 
-.search-badge img {
+.search-badge svg {
     width: 20px;
     height: 20px;
 }
