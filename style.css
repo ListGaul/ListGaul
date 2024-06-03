@@ -46,7 +46,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: -40px;
+    margin-left: -40px; /* To overlap the right side of the input field */
 }
 
 .search-badge svg {
@@ -62,7 +62,7 @@ body {
     margin: 20px auto;
     padding: 0 20px;
     box-sizing: border-box;
-    max-width: 1000px;
+    max-width: 1000px; /* Max width to ensure badges stay centered in wider screens */
 }
 
 .badge {
