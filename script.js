@@ -98,7 +98,7 @@ function performSearch() {
             badgeContainer.innerHTML = '';
             const errorMessage = document.createElement('div');
             errorMessage.className = 'error-message';
-            errorMessage.textContent = `Kata gaul "${searchInput}" tidak ditemukan.`;
+            errorMessage.textContent = `"${searchInput}" Lah bahasa gaul apaan lagi tuh?! 😩`;
             badgeContainer.appendChild(errorMessage);
 
             const kembaliContainer = document.createElement('div');
