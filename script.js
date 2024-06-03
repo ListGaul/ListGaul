@@ -1,51 +1,57 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, increment, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyAmPhSw1n-Drv99MVOjYMmEGxoQHU0-omo",
+    authDomain: "listgaul-d8918.firebaseapp.com",
+    databaseURL: "https://listgaul-d8918-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "listgaul-d8918",
+    storageBucket: "listgaul-d8918.appspot.com",
+    messagingSenderId: "540182819112",
+    appId: "1:540182819112:web:6b6802f31a512dad84201d",
+    measurementId: "G-MPCK8Z1KPD"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+const viewCountRef = ref(database, 'viewCount');
+
+// Increment view count
+get(viewCountRef).then((snapshot) => {
+    if (snapshot.exists()) {
+        incrementViewCount();
+    } else {
+        set(viewCountRef, 1);
+    }
+}).catch((error) => {
+    console.error(error);
+});
+
+function incrementViewCount() {
+    set(viewCountRef, increment(1));
+}
+
+// Update view count on the page
+onValue(viewCountRef, (snapshot) => {
+    const viewCount = snapshot.val();
+    document.getElementById('viewCount').textContent = `Jumlah view: ${viewCount}`;
+});
+
 const badgesData = [
-            { text: 'Gw > Aku' },
-            { text: 'Gue > Aku' },
-            { text: 'Gak > Tidak' },
-            { text: 'Ngabuburit > Mengisi waktu untuk menunggu' },
-            { text: 'Apes > Malang' },
-            { text: 'Gaul > Informal' },
-            { text: 'Kepo > Ingin tahu' },
-            { text: 'Jomblo > Tidak punya pacar' },
-            { text: 'Alay > Berlebihan' },
-            { text: 'Ngenes > Tertekan' },
-            { text: 'Keren > Bagus' },
-            { text: 'Bet > Sangat setuju' },
-            { text: 'Ribet > Rumit' },
-            { text: 'Jutek > Angkuh' },
-            { text: 'Nyantai > Ingin santai' },
-            { text: 'Nongkrong > Habiskan waktu bersama teman' },
-            { text: 'Woles > Tenang' },
-            { text: 'Oke sip > Setuju' },
-            { text: 'Bete > Kesal' },
-            { text: 'Gabut > Bosan' },
-            { text: 'Akur > Berdamai lagi' },
-            { text: 'Gemesin > Lucu sangat' },
-            { text: 'Mantul > Hebat' },
-            { text: 'Nyoh > Ini' },
-            { text: 'Mumet > Kebingungan' },
-            { text: 'Bebel > Bicara sambil marah-marah' },
-            { text: 'Caper > Cari perhatian' },
-            { text: 'Ciyus > Serius' },
-            { text: 'Garing > Tidak mengundang tawa' },
-            { text: 'Prank > Hanya jahil' },
-            { text: 'Baper > Bawa perasaan' },
-            { text: 'Blak-blakan > Berkata jujur tanpa berpikir' },
-            { text: 'Sombong > Angkuh' },
-            { text: 'Kece > Penampilan bagus' },
-            { text: 'Zonk > Tidak sesuai harapan' },
-            { text: 'Sinting > Hilang akal' },
-            { text: 'Stalking > Memantau orang secara diam-diam' },
-            { text: 'Saweran > Memberikan uang' },
-            { text: 'Bte > Kesal' },
-            { text: 'Tengil > Nakal' },
-            { text: 'Doyan > Gemar' },
-            { text: 'Sotoy > Pura-pura tahu' },
-            { text: 'Happening > Kejadian' },
-            { text: 'Kuy > Mari' },
-            { text: 'Skipsi > Melewatkan' },
-            { text: 'Gembel > Orang miskin' },
-            { text: 'Yowes > Sudahlah' }
+    { text: 'Gw > Aku' },
+    { text: 'Gue > Aku' },
+    { text: 'Gak > Tidak' },
+    { text: 'Ngabuburit > Mengisi waktu untuk menunggu' },
+    { text: 'Apes > Malang' },
+    { text: 'Gaul > Informal' },
+    { text: 'Kepo > Ingin tahu' },
+    { text: 'Jomblo > Tidak punya pacar' },
+    { text: 'Alay > Berlebihan' },
+    { text: 'Ngenes > Tertekan' }
 ];
 
 const shortBadgeThreshold = 20;
@@ -59,26 +65,17 @@ function createBadgeElement(text) {
 
 function sortAndDisplayBadges(badges) {
     const badgeContainer = document.getElementById('badgeContainer');
-    badgeContainer.innerHTML = ''; // Clear previous badges
+    badgeContainer.innerHTML = '';
 
-    const shortBadges = [];
-    const longBadges = [];
+    const shortBadges = badges.filter(badge => badge.text.length <= shortBadgeThreshold);
+    const longBadges = badges.filter(badge => badge.text.length > shortBadgeThreshold);
 
-    badges.forEach(badge => {
-        if (badge.text.length <= shortBadgeThreshold) {
-            shortBadges.push(badge);
-        } else {
-            longBadges.push(badge);
-        }
-    });
+    const sortedBadges = [...shortBadges, ...longBadges];
 
-    const sortedBadges = shortBadges.concat(longBadges);
     sortedBadges.forEach(badge => {
         const badgeElement = createBadgeElement(badge.text);
         badgeContainer.appendChild(badgeElement);
     });
-
-    updateBadgeCount(sortedBadges.length);
 }
 
 function updateBadgeCount(count) {
@@ -86,65 +83,66 @@ function updateBadgeCount(count) {
 }
 
 function performSearch() {
-    const query = document.getElementById('searchInput').value.trim();
-    const lowerCaseQuery = query.toLowerCase();
-    const filteredBadges = badgesData.filter(badge => badge.text.toLowerCase().includes(lowerCaseQuery));
-
+    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
     const badgeContainer = document.getElementById('badgeContainer');
-    badgeContainer.innerHTML = ''; // Clear previous badges
 
-    const errorMessage = document.querySelector('.error-message');
-    const kembaliContainer = document.querySelector('.kembali-container');
-    
-    if (query === "") {
-        if (errorMessage) errorMessage.remove();
-        if (kembaliContainer) kembaliContainer.remove();
-        sortAndDisplayBadges(badgesData);
-    } else if (filteredBadges.length > 0) {
-        if (errorMessage) errorMessage.remove();
-        if (kembaliContainer) kembaliContainer.remove();
-        sortAndDisplayBadges(filteredBadges);
-    } else {
-        if (errorMessage) {
-            errorMessage.textContent = `(${query}) Lah bahasa gaul apaan lagi tuh?! 😩`;
+    if (searchInput) {
+        const filteredBadges = badgesData.filter(badge =>
+            badge.text.toLowerCase().includes(searchInput)
+        );
+
+        if (filteredBadges.length > 0) {
+            sortAndDisplayBadges(filteredBadges);
+            updateBadgeCount(filteredBadges.length);
         } else {
-            const newErrorMessage = document.createElement('div');
-            newErrorMessage.className = 'error-message';
-            newErrorMessage.textContent = `(${query}) Lah bahasa gaul apaan lagi tuh?! 😩`;
-            badgeContainer.parentNode.insertBefore(newErrorMessage, badgeContainer.nextSibling);
+            badgeContainer.innerHTML = '';
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message';
+            errorMessage.textContent = `Kata gaul "${searchInput}" tidak ditemukan.`;
+            badgeContainer.appendChild(errorMessage);
 
-            const newKembaliContainer = document.createElement('div');
-            newKembaliContainer.className = 'kembali-container';
-            const newKembaliBadge = document.createElement('div');
-            newKembaliBadge.className = 'kembali-badge';
-            newKembaliBadge.textContent = 'Kembali';
-            newKembaliContainer.appendChild(newKembaliBadge);
-            badgeContainer.parentNode.insertBefore(newKembaliContainer, newErrorMessage.nextSibling);
+            const kembaliContainer = document.createElement('div');
+            kembaliContainer.className = 'kembali-container';
+            const kembaliBadge = document.createElement('div');
+            kembaliBadge.className = 'kembali-badge';
+            kembaliBadge.textContent = 'Kembali';
+            kembaliContainer.appendChild(kembaliBadge);
+            badgeContainer.appendChild(kembaliContainer);
 
-            newKembaliBadge.addEventListener('click', function() {
-                newErrorMessage.remove();
-                newKembaliContainer.remove();
+            kembaliBadge.addEventListener('click', function () {
+                errorMessage.remove();
+                kembaliContainer.remove();
                 sortAndDisplayBadges(badgesData);
                 document.getElementById('searchInput').value = '';
                 updateBadgeCount(badgesData.length);
             });
         }
-        updateBadgeCount(0);
+    } else {
+        const errorMessage = document.querySelector('.error-message');
+        const kembaliContainer = document.querySelector('.kembali-container');
+        if (errorMessage) {
+            errorMessage.remove();
+        }
+        if (kembaliContainer) {
+            kembaliContainer.remove();
+        }
+        sortAndDisplayBadges(badgesData);
+        updateBadgeCount(badgesData.length);
     }
 }
 
-document.getElementById('searchInput').addEventListener('keydown', function(event) {
+document.getElementById('searchInput').addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         performSearch();
     }
 });
 
-document.getElementById('searchBadge').addEventListener('click', function() {
+document.getElementById('searchBadge').addEventListener('click', function () {
     performSearch();
 });
 
-document.getElementById('mainTitle').addEventListener('click', function() {
+document.getElementById('mainTitle').addEventListener('click', function () {
     const errorMessage = document.querySelector('.error-message');
     const kembaliContainer = document.querySelector('.kembali-container');
     if (errorMessage) {
@@ -159,3 +157,4 @@ document.getElementById('mainTitle').addEventListener('click', function() {
 });
 
 sortAndDisplayBadges(badgesData);
+updateBadgeCount(badgesData.length);
