@@ -52,7 +52,8 @@ const badgesData = [
     { text: 'Jomblo > Tidak punya pacar' },
     { text: 'Alay > Berlebihan' },
     { text: 'Ngenes > Tertekan' },
-    { text: 'Rill > Nyata' }
+    { text: 'Rill > Nyata' },
+    { text: 'Mau > Mahu' }
 ];
 
 const shortBadgeThreshold = 20;
