@@ -51,7 +51,8 @@ const badgesData = [
     { text: 'Kepo > Ingin tahu' },
     { text: 'Jomblo > Tidak punya pacar' },
     { text: 'Alay > Berlebihan' },
-    { text: 'Ngenes > Tertekan' }
+    { text: 'Ngenes > Tertekan' },
+    { text: 'Rill > Nyata' }
 ];
 
 const shortBadgeThreshold = 20;
